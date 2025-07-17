@@ -69,18 +69,33 @@
       <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">Choose Your Avatar</div>
       <div style="display: flex; gap: 2rem;">
         <div style="display: flex; flex-direction: column; align-items: center;">
-          <div id="dog-avatar-preview" style="
-            width: 48px;
-            height: 48px;
-            background: url('assets/dogs/avatar/Idle.png') no-repeat 0 0;
+          <div id="san-avatar-preview" style="
+            width: 96px;
+            height: 96px;
+            background: url('assets/san/avatar/Idle.png') no-repeat 0 0;
+            background-size: auto 96px;
+            border: 2px solid #8ab4f8;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #23272e;"
+            onclick="selectAvatar('san')">
+          </div>
+          <span style="margin-top: 0.5rem; color: #8ab4f8;">San</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div id="azuki-avatar-preview" style="
+            width: 96px;
+            height: 96px;
+            overflow: hidden;
+            background: url('assets/azuki/avatar/main.png') no-repeat bottom;
             background-size: auto 48px;
             border: 2px solid #8ab4f8;
             border-radius: 8px;
             cursor: pointer;
             background-color: #23272e;"
-            onclick="selectAvatar('dogs')">
+            onclick="selectAvatar('azuki')">
           </div>
-          <span style="margin-top: 0.5rem; color: #8ab4f8;">Dog</span>
+          <span style="margin-top: 0.5rem; color: #8ab4f8;">Azuki</span>
         </div>
       </div>
     </div>
@@ -90,14 +105,16 @@
   <audio id="coin-audio" src="assets/mario-coin.mp3" preload="auto"></audio>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
   <script>
-    let selectedAvatar = 'dogs';
+    let selectedAvatar = 'san';
     function selectAvatar(key) {
       selectedAvatar = key;
-      // Optionally highlight the selected avatar
-      document.getElementById('dog-avatar-preview').style.border = key === 'dogs' ? '4px solid #fff' : '2px solid #8ab4f8';
+      window.selectedAvatar = key;
+      // Highlight selected avatar
+      document.getElementById('san-avatar-preview').style.border = key === 'san' ? '4px solid #fff' : '2px solid #8ab4f8';
+      document.getElementById('azuki-avatar-preview').style.border = key === 'azuki' ? '4px solid #fff' : '2px solid #8ab4f8';
     }
     // Default highlight
-    window.onload = () => selectAvatar('dogs');
+    window.onload = () => selectAvatar('san');
   </script>
   <script type="module" src="main.js"></script>
 </body>

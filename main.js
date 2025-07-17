@@ -88,7 +88,7 @@ function startGame() {
 
     function preload() {
         // Use the selected avatar key from the window (set in index.html)
-        const avatarKey = window.selectedAvatar || 'dogs';
+        const avatarKey = window.selectedAvatar || 'san';
         this.load.spritesheet('walk', `assets/${avatarKey}/avatar/Walk.png`, { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('idle', `assets/${avatarKey}/avatar/Idle.png`, { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('attack', `assets/${avatarKey}/avatar/Attack.png`, { frameWidth: 48, frameHeight: 48 });
@@ -101,20 +101,20 @@ function startGame() {
         this.load.image('left_wall', 'assets/tiles/left_wall.png');
         this.load.image('top_left_corner', 'assets/tiles/top_left_corner.png');
         // Load DogItems.png as a spritesheet for treats
-        this.load.spritesheet('dogitems', 'assets/DogItems.png', { frameWidth: 32, frameHeight: 32 });
-        // Load bark sound for the dog avatar
-        this.load.audio('crunch', 'assets/dogs/avatar/crunch.mp3');
-        this.load.audio('bark', 'assets/dogs/avatar/dog-bark.mp3');
+        this.load.spritesheet('dogitems', 'assets/san/DogItems.png', { frameWidth: 32, frameHeight: 32 });
+        // Load bark sound for the avatar
+        this.load.audio('crunch', 'assets/san/avatar/crunch.mp3');
+        this.load.audio('bark', 'assets/san/avatar/dog-bark.mp3');
         // ...load all tile types you use
         // Set world gravity for jumping
         this.physics.world.gravity.y = 1000;
         this.load.image('background', 'assets/background.png');
-        this.load.image('dog-bone', 'assets/dogs/items/dog-bone.png');
-        this.load.image('dog-bone2', 'assets/dogs/items/dog-bone2.png');
-        this.load.image('dog-chicken-leg', 'assets/dogs/items/dog-chicken-leg.png');
-        this.load.image('dog-chicken', 'assets/dogs/items/dog-chicken.png');
-        this.load.image('dog-meat', 'assets/dogs/items/dog-meat.png');
-        this.load.image('poop', 'assets/dogs/items/poop.png');
+        this.load.image('dog-bone', 'assets/san/items/dog-bone.png');
+        this.load.image('dog-bone2', 'assets/san/items/dog-bone2.png');
+        this.load.image('dog-chicken-leg', 'assets/san/items/dog-chicken-leg.png');
+        this.load.image('dog-chicken', 'assets/san/items/dog-chicken.png');
+        this.load.image('dog-meat', 'assets/san/items/dog-meat.png');
+        this.load.image('poop', 'assets/san/items/poop.png');
     }
 
     function create() {
@@ -149,7 +149,13 @@ function startGame() {
         // addHint(this, 200, 100, 'Welcome to our Interactive Docs!');
         // addHint(this, 200, 100, 'Collect the Treats to learn more!');
         // Start player at bottom left
+        const avatarKey = window.selectedAvatar || 'san';
         player = this.physics.add.sprite(0, 800 - 24, 'idle'); // y = 800 - half sprite height
+        if (avatarKey === 'san') {
+            player.setScale(1.3);
+        } else {
+            player.setScale(1);
+        }
         player.play('idle');
         player.setCollideWorldBounds(true);
         player.body.setAllowGravity(true);
@@ -266,7 +272,7 @@ function startGame() {
         poopOverlay.setScrollFactor(0);
         poopOverlay.setDepth(1000);
         poopOverlay.setVisible(false);
-        poopText = this.add.text(540, 200, 'POOP TIME!', {
+        poopText = this.add.text(540, 200, '', {
             fontFamily: 'Graduate, Arial, sans-serif',
             fontSize: '72px',
             fontStyle: 'bold',
@@ -463,6 +469,10 @@ function startGame() {
         if (poopOverlay && poopText) {
             poopOverlay.setVisible(isPooping);
             poopText.setVisible(isPooping);
+            if (isPooping) {
+                const avatarKey = window.selectedAvatar || 'san';
+                poopText.setText(avatarKey === 'azuki' ? 'URESYON!' : 'POOP TIME!');
+            }
         }
     }
 } 
