@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Game Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #181c20;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #game-container {
+      display: none;
+    }
+    #splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+      font-family: 'Graduate', serif;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #8ab4f8;
+      font-family: 'Graduate', serif;
+      text-align: center;
+    }
+    .play-btn {
+      font-size: 2rem;
+      padding: 1rem 3rem;
+      background: #222c36;
+      color: #8ab4f8;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px #0004;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+      margin: 0 auto;
+      display: block;
+    }
+    .play-btn:hover {
+      background: #8ab4f8;
+      color: #222c36;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div class="title">Where will San-chan Poop?!</div>
+    <div class="subtitle">Play San and find out!</div>
+    <div id="avatar-select" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem;">
+      <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">Choose Your Avatar</div>
+      <div style="display: flex; gap: 2rem;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div id="dog-avatar-preview" style="
+            width: 48px;
+            height: 48px;
+            background: url('assets/dogs/avatar/Idle.png') no-repeat 0 0;
+            background-size: auto 48px;
+            border: 2px solid #8ab4f8;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #23272e;"
+            onclick="selectAvatar('dogs')">
+          </div>
+          <span style="margin-top: 0.5rem; color: #8ab4f8;">Dog</span>
+        </div>
+      </div>
+    </div>
+    <button class="play-btn" id="playBtn">PLAY</button>
+  </div>
+  <div id="game-container"></div>
+  <audio id="coin-audio" src="assets/mario-coin.mp3" preload="auto"></audio>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+  <script>
+    let selectedAvatar = 'dogs';
+    function selectAvatar(key) {
+      selectedAvatar = key;
+      // Optionally highlight the selected avatar
+      document.getElementById('dog-avatar-preview').style.border = key === 'dogs' ? '4px solid #fff' : '2px solid #8ab4f8';
+    }
+    // Default highlight
+    window.onload = () => selectAvatar('dogs');
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html> 
