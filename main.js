@@ -402,11 +402,18 @@ function startGame() {
             player.setVelocityY(-500);
         }
 
-        // --- DOWN KEY LOGIC HERE, after movement is set ---
-        // Remove or comment out S key logic for down/death
-        // let isDownKey = cursors.down.isDown || this.input.keyboard.keys[83].isDown; // 83 = S
-        // if (isDownKey) { ... }
-        // else if (isDowning) { ... }
+        // Auto-poop logic
+        if (food > 10 && !autoPoopTimer) {
+            autoPoopTimer = this.time.addEvent({
+                delay: 2000,
+                callback: () => tryPoop(this),
+                callbackScope: this,
+                loop: true
+            });
+        } else if (food <= 10 && autoPoopTimer) {
+            autoPoopTimer.remove();
+            autoPoopTimer = null;
+        }
 
         // Poop on S key
         if (!isDowning && Phaser.Input.Keyboard.JustDown(sKey) && !isPooping && !isAttacking) {
