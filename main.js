@@ -282,6 +282,27 @@ function startGame() {
             },
             align: 'center'
         }).setOrigin(0.5).setScrollFactor(0).setDepth(1001).setAngle(-10).setVisible(false);
+
+        // Controls overlay (top left corner)
+        const controlsText = [
+            'CONTROLS:',
+            '←/→ or A/D: Move',
+            'W: Bark',
+            'S: Poop',
+            'SHIFT: Sprint (if not overfed)',
+            'Space: Jump',
+            '',
+            'Eat treats to fill food bar',
+            'Over 10 food: auto-poop!'
+        ].join('\n');
+        this.add.text(24, 24, controlsText, {
+            fontFamily: 'Graduate, Arial, sans-serif',
+            fontSize: '18px',
+            fill: '#cccccc',
+            align: 'left',
+            backgroundColor: 'rgba(34,44,54,0.3)',
+            padding: { x: 12, y: 8 },
+        }).setScrollFactor(0).setDepth(2000);
     }
 
     function updateFoodBar() {
@@ -382,41 +403,13 @@ function startGame() {
         }
 
         // --- DOWN KEY LOGIC HERE, after movement is set ---
-        let isDownKey = cursors.down.isDown || this.input.keyboard.keys[83].isDown; // 83 = S
+        // Remove or comment out S key logic for down/death
+        // let isDownKey = cursors.down.isDown || this.input.keyboard.keys[83].isDown; // 83 = S
+        // if (isDownKey) { ... }
+        // else if (isDowning) { ... }
 
-        if (isDownKey) {
-            if (!isDowning) {
-                isDowning = true;
-                isAttacking = false; // Cancel attack
-                isPooping = false;   // Cancel poop
-
-            }
-        } else if (isDowning) {
-            isDowning = false;
-            // Return to idle or walk animation
-            if (moving) {
-                player.anims.play('walk', true);
-            } else {
-                player.anims.play('idle', true);
-            }
-        }
-
-        // Auto-poop logic
-        if (food > 10 && !autoPoopTimer) {
-            autoPoopTimer = this.time.addEvent({
-                delay: 2000,
-                callback: () => tryPoop(this),
-                callbackScope: this,
-                loop: true
-            });
-        } else if (food <= 10 && autoPoopTimer) {
-            autoPoopTimer.remove();
-            autoPoopTimer = null;
-        }
-
-        // Poop on P key
-        const pKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-        if (!isDowning && Phaser.Input.Keyboard.JustDown(pKey) && !isPooping && !isAttacking) {
+        // Poop on S key
+        if (!isDowning && Phaser.Input.Keyboard.JustDown(sKey) && !isPooping && !isAttacking) {
             tryPoop(this);
         }
 
