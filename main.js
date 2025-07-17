@@ -345,7 +345,8 @@ function startGame() {
         scene.time.delayedCall(poopDuration, () => {
             isPooping = false;
             // Poop success logic
-            let poopChance = Math.min(0.05 + 0.01 * food, 1.0); // 5% base + 1% per food, max 100%
+            const avatarKey = window.selectedAvatar || 'san';
+            let poopChance = avatarKey === 'azuki' ? 1.0 : Math.min(0.05 + 0.01 * food, 1.0);
             if (Math.random() < poopChance) {
                 food = Math.round(Math.random() * maxFood);
                 updateFoodBar();
@@ -374,8 +375,13 @@ function startGame() {
             speed = 100; // half speed
             // Sprint disabled
         } else {
+            const avatarKey = window.selectedAvatar || 'san';
             if (shiftKey.isDown) {
-                speed = 400;
+                if (avatarKey === 'azuki') {
+                    speed = 800;
+                } else {
+                    speed = 400;
+                }
             }
         }
         if (isPooping) {

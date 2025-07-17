@@ -63,8 +63,8 @@
 </head>
 <body>
   <div id="splash">
-    <div class="title">Where will San-chan Poop?!</div>
-    <div class="subtitle">Play San and find out!</div>
+    <div class="title">NEIGHBORS DOG POOP GAME!</div>
+    <div class="subtitle">Pick your Doggie!</div>
     <div id="avatar-select" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem;">
       <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">Choose Your Avatar</div>
       <div style="display: flex; gap: 2rem;">
@@ -97,6 +97,20 @@
           </div>
           <span style="margin-top: 0.5rem; color: #8ab4f8;">Azuki</span>
         </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div id="arthur-avatar-preview" style="
+            width: 96px;
+            height: 96px;
+            background: url('assets/arthur/avatar/main.png') no-repeat center bottom;
+            background-size: auto 48px;
+            border: 2px solid #8ab4f8;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #23272e;"
+            onclick="selectAvatar('arthur')">
+          </div>
+          <span style="margin-top: 0.5rem; color: #8ab4f8;">Arthur</span>
+        </div>
       </div>
     </div>
     <button class="play-btn" id="playBtn">PLAY</button>
@@ -112,6 +126,7 @@
       // Highlight selected avatar
       document.getElementById('san-avatar-preview').style.border = key === 'san' ? '4px solid #fff' : '2px solid #8ab4f8';
       document.getElementById('azuki-avatar-preview').style.border = key === 'azuki' ? '4px solid #fff' : '2px solid #8ab4f8';
+      document.getElementById('arthur-avatar-preview').style.border = key === 'arthur' ? '4px solid #fff' : '2px solid #8ab4f8';
     }
     // Default highlight
     window.onload = () => selectAvatar('san');
